@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wanzeler.estudoapi.domain.model.Cliente;
@@ -15,30 +18,36 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/clientes")
 public class ClienteController {
 
 
 	private ClienteRepository clienteRepository;
 	
-	@GetMapping("/clientes")
+	@GetMapping
 	public List<Cliente> listar() {
 		return clienteRepository.findAll();
 	}
 	
-	@GetMapping("/clientes/nome")
+	@GetMapping("/nome")
 	public List<Cliente> listarNome() {
 		return clienteRepository.findByNome("Agostinho Hipona");
 	}
 	
-	@GetMapping("/clientes/nomequalquer")
+	@GetMapping("/nomequalquer")
 	public List<Cliente> listarNomeSemExatidao() {
 		return clienteRepository.findByNomeContaining("i");
 	}
 	
-	@GetMapping("/clientes/{clienteId}")
+	@GetMapping("/{clienteId}")
 	public ResponseEntity<Cliente> buscar(@PathVariable Long clienteId) {
 		return clienteRepository.findById(clienteId)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
+	}
+	
+	@PostMapping
+	public Cliente adicinar(@RequestBody Cliente cliente) {
+		return clienteRepository.save(cliente);
 	}
 }
