@@ -1,11 +1,9 @@
 package com.wanzeler.estudoapi.controller;
 
 import java.util.List;
+import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +32,13 @@ public class ClienteController {
 	
 	@GetMapping("/clientes/nomequalquer")
 	public List<Cliente> listarNomeSemExatidao() {
-		return clienteRepository.findByNomeContaining("Hipona");
+		return clienteRepository.findByNomeContaining("i");
+	}
+	
+	@GetMapping("/clientes/{clienteId}")
+	public ResponseEntity<Cliente> buscar(@PathVariable Long clienteId) {
+		return clienteRepository.findById(clienteId)
+				.map(cliente -> ResponseEntity.ok(cliente))
+				.orElse(ResponseEntity.notFound().build());
 	}
 }
