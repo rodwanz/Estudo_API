@@ -3,6 +3,8 @@ package com.wanzeler.estudoapi.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,13 +54,13 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente adicinar(@RequestBody Cliente cliente) {
+	public Cliente adicinar(@Valid @RequestBody Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
 	
 	@PutMapping("/{clienteId}")
 	public ResponseEntity<Cliente> atualizando(@PathVariable Long clienteId, 
-			@RequestBody Cliente cliente){
+			@Valid @RequestBody Cliente cliente){
 		if(!clienteRepository.existsById(clienteId)) {
 			return ResponseEntity.notFound().build();
 		}
