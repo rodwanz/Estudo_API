@@ -1,4 +1,5 @@
-package com.wanzeler.estudoapi.exceptionhandler;
+package com.wanzeler.estudoapi.api.exceptionhandler;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,8 +14,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.wanzeler.estudoapi.domain.exception.NegocioException;
 
 import lombok.AllArgsConstructor;
 
@@ -45,6 +49,17 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 				+ "Faça o preenchimento correto e tente novamente");
 		problema.setCampos(campos);
 		return handleExceptionInternal(ex, problema, headers, status, request);
+	}
+	
+	@ExceptionHandler(NegocioException.class)
+	public ResponseEntity<Object> handleNegocio(NegocioException ex, WebRequest request){
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		
+		Problema problema = new Problema();
+		problema.setStatus(status.value());
+		problema.setDataHora(LocalDateTime.now());
+		problema.setTitulo(ex.getMessage());
+		return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
 	}
 
 }

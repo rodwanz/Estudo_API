@@ -1,7 +1,6 @@
-package com.wanzeler.estudoapi.controller;
+package com.wanzeler.estudoapi.api.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wanzeler.estudoapi.domain.model.Cliente;
 import com.wanzeler.estudoapi.domain.repository.ClienteRepository;
+import com.wanzeler.estudoapi.domain.service.CatalogoClienteService;
 
 import lombok.AllArgsConstructor;
 
@@ -29,6 +29,7 @@ public class ClienteController {
 
 
 	private ClienteRepository clienteRepository;
+	private CatalogoClienteService catalogoClienteService;
 	
 	@GetMapping
 	public List<Cliente> listar() {
@@ -55,7 +56,7 @@ public class ClienteController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente adicinar(@Valid @RequestBody Cliente cliente) {
-		return clienteRepository.save(cliente);
+		return catalogoClienteService.salvar(cliente);
 	}
 	
 	@PutMapping("/{clienteId}")
@@ -65,7 +66,7 @@ public class ClienteController {
 			return ResponseEntity.notFound().build();
 		}
 		cliente.setId(clienteId);
-		cliente = clienteRepository.save(cliente);
+		cliente = catalogoClienteService.salvar(cliente);
 		return ResponseEntity.ok(cliente);
 	}
 	
@@ -74,7 +75,7 @@ public class ClienteController {
 			if(!clienteRepository.existsById(clienteId)) {
 				return ResponseEntity.notFound().build();
 			}
-			clienteRepository.deleteById(clienteId);
+			catalogoClienteService.excluir(clienteId);
 			return ResponseEntity.notFound().build();
 	}
 }
