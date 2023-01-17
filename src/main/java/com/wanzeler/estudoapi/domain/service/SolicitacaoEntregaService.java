@@ -1,14 +1,12 @@
 package com.wanzeler.estudoapi.domain.service;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import org.springframework.stereotype.Service;
 
-import com.wanzeler.estudoapi.domain.exception.NegocioException;
 import com.wanzeler.estudoapi.domain.model.Cliente;
 import com.wanzeler.estudoapi.domain.model.Entrega;
 import com.wanzeler.estudoapi.domain.model.StatusEntrega;
-import com.wanzeler.estudoapi.domain.repository.ClienteRepository;
 import com.wanzeler.estudoapi.domain.repository.EntregaRepository;
 
 import lombok.AllArgsConstructor;
@@ -25,7 +23,7 @@ public class SolicitacaoEntregaService {
 		
 		entrega.setCliente(cliente);
 		entrega.setStatus(StatusEntrega.PEDENTE);
-		entrega.setDataPedido(LocalDateTime.now());
+		entrega.setDataPedido(OffsetDateTime.now());
 		return entregarepository.save(entrega);
 	}
 }

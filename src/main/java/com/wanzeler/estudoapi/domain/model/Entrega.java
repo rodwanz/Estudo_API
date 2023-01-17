@@ -2,6 +2,7 @@ package com.wanzeler.estudoapi.domain.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -18,7 +19,6 @@ import javax.validation.groups.Default;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 
 import lombok.EqualsAndHashCode;
 
@@ -50,10 +50,10 @@ public class Entrega {
 	private StatusEntrega status;
 	
 	@JsonProperty(access = Access.READ_ONLY)
-	private LocalDateTime dataPedido;
+	private OffsetDateTime dataPedido;
 	
 	@JsonProperty(access = Access.READ_ONLY)
-	private LocalDateTime dataFinalizado;
+	private OffsetDateTime dataFinalizado;
 
 	public Long getId() {
 		return id;
@@ -95,19 +95,19 @@ public class Entrega {
 		this.status = status;
 	}
 
-	public LocalDateTime getDataPedido() {
+	public OffsetDateTime getDataPedido() {
 		return dataPedido;
 	}
 
-	public void setDataPedido(LocalDateTime dataPedido) {
+	public void setDataPedido(OffsetDateTime dataPedido) {
 		this.dataPedido = dataPedido;
 	}
 
-	public LocalDateTime getDataFinalizado() {
+	public OffsetDateTime getDataFinalizado() {
 		return dataFinalizado;
 	}
 
-	public void setDataFinalizado(LocalDateTime dataFinalizado) {
+	public void setDataFinalizado(OffsetDateTime dataFinalizado) {
 		this.dataFinalizado = dataFinalizado;
 	}
 }
