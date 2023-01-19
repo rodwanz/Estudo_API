@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wanzeler.estudoapi.api.model.DestinatarioModel;
+import com.wanzeler.estudoapi.api.model.EntregaModel;
 import com.wanzeler.estudoapi.domain.model.Entrega;
 import com.wanzeler.estudoapi.domain.repository.EntregaRepository;
 import com.wanzeler.estudoapi.domain.service.SolicitacaoEntregaService;
@@ -41,9 +42,23 @@ public class EntregaController {
 	}
 	
 	@GetMapping("/{entregaId}")
-	public ResponseEntity<Entrega> bscar(@PathVariable Long entregaId) {
+	public ResponseEntity<EntregaModel> bscar(@PathVariable Long entregaId) {
 		return entregaRepository.findById(entregaId)
-				.map(ResponseEntity::ok)
+				.map(entrega -> {
+					EntregaModel entregaModel = new EntregaModel();
+					entregaModel.setId(entrega.getId());
+					entregaModel.setNomeCliente(entrega.getCliente().getNome());
+					entregaModel.setDestinatario(new DestinatarioModel());
+					entregaModel.getDestinatario().setNome(entrega.getDestinatario().getNome());
+					entregaModel.getDestinatario().setLogradouro(entrega.getDestinatario().getLogradouro());
+					entregaModel.getDestinatario().setNumero(entrega.getDestinatario().getNumero());
+					entregaModel.getDestinatario().setComplemento(entrega.getDestinatario().getComplemento());
+					entregaModel.getDestinatario().setBairro(entrega.getDestinatario().getBairro());
+					entregaModel.setTaxa(entrega.getTaxa());
+					entregaModel.setDataPedido(entrega.getDataPedido());
+					entregaModel.setDataFinalizado(entrega.getDataFinalizado());
+					return ResponseEntity.ok(entregaModel);
+				})
 				.orElse(ResponseEntity.notFound().build());
 	}
 }

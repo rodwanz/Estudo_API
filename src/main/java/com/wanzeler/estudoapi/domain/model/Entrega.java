@@ -1,7 +1,6 @@
 package com.wanzeler.estudoapi.domain.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 import javax.persistence.Embedded;
@@ -12,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
@@ -54,6 +54,9 @@ public class Entrega {
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataFinalizado;
+	
+	@Transient
+	private String senha;
 
 	public Long getId() {
 		return id;
