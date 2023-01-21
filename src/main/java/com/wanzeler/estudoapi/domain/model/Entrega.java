@@ -31,14 +31,9 @@ public class Entrega {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Valid
-	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class)
-	@NotNull
 	@ManyToOne
 	private Cliente cliente;
-	
-	@Valid
-	@NotNull
+
 	@Embedded
 	private Destinatario destinatario;
 	
@@ -46,17 +41,11 @@ public class Entrega {
 	private BigDecimal taxa;
 	
 	@Enumerated(EnumType.STRING)
-	@JsonProperty(access = Access.READ_ONLY)
 	private StatusEntrega status;
 	
-	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataPedido;
 	
-	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataFinalizado;
-	
-	@Transient
-	private String senha;
 
 	public Long getId() {
 		return id;
