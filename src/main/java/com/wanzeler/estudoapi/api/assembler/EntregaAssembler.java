@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.wanzeler.estudoapi.api.model.EntregaModel;
-import com.wanzeler.estudoapi.api.model.inpt.EntregaInput;
+import com.wanzeler.estudoapi.api.model.input.EntregaInput;
 import com.wanzeler.estudoapi.domain.model.Entrega;
 
 import lombok.AllArgsConstructor;

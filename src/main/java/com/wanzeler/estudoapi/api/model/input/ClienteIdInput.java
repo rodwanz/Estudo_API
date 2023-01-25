@@ -1,4 +1,4 @@
-package com.wanzeler.estudoapi.api.model.inpt;
+package com.wanzeler.estudoapi.api.model.input;
 
 import javax.validation.constraints.NotNull;
 

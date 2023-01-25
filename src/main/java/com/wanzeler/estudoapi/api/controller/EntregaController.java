@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wanzeler.estudoapi.api.assembler.EntregaAssembler;
 import com.wanzeler.estudoapi.api.model.EntregaModel;
-import com.wanzeler.estudoapi.api.model.inpt.EntregaInput;
+import com.wanzeler.estudoapi.api.model.input.EntregaInput;
 import com.wanzeler.estudoapi.domain.model.Entrega;
 import com.wanzeler.estudoapi.domain.repository.EntregaRepository;
 import com.wanzeler.estudoapi.domain.service.SolicitacaoEntregaService;

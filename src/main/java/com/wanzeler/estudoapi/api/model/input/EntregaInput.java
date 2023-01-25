@@ -1,7 +1,6 @@
-package com.wanzeler.estudoapi.api.model.inpt;
+package com.wanzeler.estudoapi.api.model.input;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
